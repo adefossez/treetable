@@ -33,10 +33,10 @@ cSBD        ||  39  N  ||  92.7%  56.6% | 22.2%  46.8%
 ## Usage and example
 
 The main function is `treetable.treetable`. It takes a tree-like structure
-to represent the table. For instance, I could have a subtable `info` and
-a subtable `metrics`, each one being recursively composed of other subtables.
+to represent the table. For instance, I could have a sub-table `info` and
+a sub-table `metrics`, each one being recursively composed of other sub-tables.
 
-Each extra level of subtable use a different separator (by default up to 3
+Each extra level of sub-table use a different separator (by default up to 3
 levels but you can provide extra separators with the `separators` arguments).
 
 At the leaf level of the tree, a format string (that can be passed to the
@@ -44,11 +44,11 @@ At the leaf level of the tree, a format string (that can be passed to the
 
 ```python
 groups = {
-    'info': { # subtable info
+    'info': { # sub-table info
         'name' : 's', # name is an actual column, of type string
         'index': 'd', # and here an int
     },
-    'metrics>': { # another subtable
+    'metrics>': { # another sub-table
         'speed': '.0f',
         'accuracy': '.1%',
         'special=': '.1f'
@@ -56,9 +56,9 @@ groups = {
 }
 ```
 
-It is possible to specify alignment for a particular column or entire subtable
+It is possible to specify alignment for a particular column or entire sub-table
 by adding either `<` (left align), `>` (right align) or `=` (centered)
-after its namne. In this case, all the columns in the `metrics` subtable
+after its namne. In this case, all the columns in the `metrics` sub-table
 will be right aligned except for `special` which will be centered.
 Subtable header are always centered. Column header are aligned like the
 corresponding column.
