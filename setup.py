@@ -3,7 +3,7 @@
 
 from pathlib import Path
 
-from setuptools import find_packages, setup
+from setuptools import setup
 
 NAME = 'treetable'
 DESCRIPTION = ('Helper to pretty print an ascii table with a'
@@ -34,7 +34,7 @@ setup(
     author_email=EMAIL,
     python_requires=REQUIRES_PYTHON,
     url=URL,
-    packages=find_packages(),
+    py_modules = ['treetable'],
     install_requires=REQUIRED,
     include_package_data=True,
     license='Unlicense license',
