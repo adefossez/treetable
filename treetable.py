@@ -98,15 +98,17 @@ def _tree_depth(groups):
 
 
 def _treetable(lines, groups, shorten, missing, default_justify, separators):
-    if not separators:
-        raise ValueError('Not enough separators for depth of tree')
+    depth = _tree_depth(groups)
+    if depth - 1 >= len(separators):
+        raise ValueError(
+            'Not enough separators for depth of tree '
+            f'(depth is {depth} but got {len(separators)} separators)')
     if shorten:
         short_names = get_short_names(groups.keys())
     else:
         short_names = groups.keys()
 
     columns = []
-    depth = _tree_depth(groups)
     for (name, group), short_name in zip(groups.items(), short_names):
         group_depth = _tree_depth(group)
         delta_depth = depth - group_depth
@@ -119,7 +121,7 @@ def _treetable(lines, groups, shorten, missing, default_justify, separators):
             group_formatted = _treetable_terminal(group_lines, group, missing)
         else:
             group_formatted = _treetable(group_lines, group, shorten, missing,
-                                         justify, separators[delta_depth:])
+                                         justify, separators)
             justify = '<'
         width = max(
             len(short_name),
@@ -135,15 +137,15 @@ def _treetable(lines, groups, shorten, missing, default_justify, separators):
             delta_depth - 1) + [display_name] + group_formatted
         columns.append(group_formatted)
 
-    return [separators[0].join(line) for line in zip(*columns)]
+    return [separators[depth - 1].join(line) for line in zip(*columns)]
 
 
 def treetable(lines,
               groups,
-              shorten=True,
+              shorten=False,
               missing='',
               default_justify='<',
-              separators=['  ||  ', ' | ', '  '],
+              separators=['  ', ' | ', '  ||  '],
               line_separator='\n'):
     '''
     Return a `str` representing a tree-like table. `groups` is a dictionary,
@@ -171,8 +173,8 @@ def treetable(lines,
     `groups`, not `lines`.
 
     `separators` give the list of sub-tables separators. It needs to be
-    as long as the depth of `groups`. If the maximum depth is less than
-    the length of `separators`, the last ones are used first.
+    as long as the maximum depth of `groups`. Deepest separators comes first.
+    If longer than the maximum depth of `groups`, the first ones will be used.
 
     `line_separator` is used to separate the lines in the table.
 

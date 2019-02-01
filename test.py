@@ -50,7 +50,21 @@ groups = {
             'accuracy': '.1%',
         }
     },
-    'plop': {}
 }
 print_groups(groups, 0)
+print_groups(groups)
+
+groups['plop'] = {}
+print_groups(groups)
+
+groups = {
+    'info': {
+        'index': 'd',
+        'status': '1s',
+    },
+    'metrics>': {
+        'precision': '.1%',
+        'recall': '.1%',
+    }
+}
 print_groups(groups)
