@@ -54,7 +54,7 @@ groups = {
         'special=': '.1f'
     }
 }
-
+```
 
 It is possible to specify alignment for a particular column or entire subtable
 by adding either `<` (left align), `>` (right align) or `=` (centered)
