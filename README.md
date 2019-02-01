@@ -12,7 +12,7 @@ provide `OrderedDict` but I prefer having this behavior for the builtin
 `treetable` uses only the standard lib.
 
 ```
-pip3 install --upgrade git+http://github.com/adefossez/treetable
+pip3 install treetable
 ```
 
 
