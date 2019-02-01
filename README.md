@@ -83,8 +83,8 @@ alice  2     |    67     45.0%    4.6
 
 `treetable` can automatically shorten columns headers by passing `shorten=True`.
 It will use the shortest prefix that is non ambiguous. It won't shorten
-the header name more than the width of the data in column. For instance with
-the previous example you would get:
+the header name more than the width of the data in the corresponding column.
+For instance with the previous example you would get:
 
 ```
   info   |      metrics
@@ -97,30 +97,6 @@ alice  2 |   67  45.0%  4.6
 be no point in shortening it. However `spec` and `speed` are kept long enough
 to avoid ambiguity.
 
-
-```python
-groups = {
-    'info': { # subtable info
-        'name' : 's', # name is an actual column, of type string
-        'index': 'd', # and here an int
-    },
-    'metrics>': { # another subtable
-        'speed': '.0f',
-        'accuracy': '.1%',
-        'special=': '.1f'
-    }
-}
-```
-
-then all columns under `metrics` will be right aligned except for `special`
-which will be centered:
-
-```
-    info     |          metrics
- name  index | speed  accuracy  special
-bob    4     |   200     21.0%    0.1
-alice  2     |    67     45.0%    4.6
-```
 
 ## Documentation
 Copied from `treetable.treetable` documentation.

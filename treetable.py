@@ -153,9 +153,9 @@ def treetable(lines,
     of the sub-table while the value can either be another dict to represent
     another nested sub-table or a format string if we reached a column.
 
-    Similarly, `lines` will follow the same nested dictionary structure
-    up to a final object that will be formatted using the builtin `format`
-    and the format string obtained from `groups`.
+    Similarly, `lines` will be a list of elements following the same nested 
+    dictionary structure up to a final object that will be formatted 
+    using the builtin `format` and the format string obtained from `groups`.
 
     If `shorten` is True, all the sub-table names will be shortened as much
     as possible to prevent confusion (see `get_short_names` above).
