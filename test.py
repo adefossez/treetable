@@ -68,3 +68,43 @@ groups = {
     }
 }
 print_groups(groups)
+
+groups = {
+    'info': {  # subtable info
+        'name': 's',  # name is an actual column, of type string
+        'index': 'd',  # and here an int
+    },
+    'metrics>': {  # another subtable
+        'speed': '.0f',
+        'accuracy': '.1%',
+        'special=': '.1f'
+    }
+}
+lines = [
+    {
+        'info': {
+            'name': 'bob',
+            'index': 4
+        },
+        'metrics': {
+            'speed': 200,
+            'accuracy': 0.21,
+            'special': 0.1
+        }
+    },
+    {
+        'info': {
+            'name': 'alice',
+            'index': 2
+        },
+        'metrics': {
+            'speed': 67,
+            'accuracy': 0.45,
+            'special': 4.56
+        }
+    },
+]
+print(treetable(lines, groups))
+print()
+print(treetable(lines, groups, shorten=True))
+print()

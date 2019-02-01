@@ -131,7 +131,10 @@ def _treetable(lines, groups, shorten, missing, default_justify, separators):
         group_formatted = [
             justified(line, width, justify) for line in group_formatted
         ]
-        display_name = name[:width].center(width)
+        if terminal:
+            display_name = justified(name[:width], width, justify)
+        else:
+            display_name = name[:width].center(width)
 
         group_formatted = [' ' * width] * (
             delta_depth - 1) + [display_name] + group_formatted

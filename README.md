@@ -48,7 +48,7 @@ groups = {
         'name' : 's', # name is an actual column, of type string
         'index': 'd', # and here an int
     },
-    'metrics<': { # another subtable
+    'metrics>': { # another subtable
         'speed': '.0f',
         'accuracy': '.1%',
         'special=': '.1f'
@@ -60,7 +60,8 @@ It is possible to specify alignment for a particular column or entire subtable
 by adding either `<` (left align), `>` (right align) or `=` (centered)
 after its namne. In this case, all the columns in the `metrics` subtable
 will be right aligned except for `special` which will be centered.
-Column or subtable headers are always centered.
+Subtable header are always centered. Column header are aligned like the
+corresponding column.
 
 The lines of the table should be provided following a list of nested
 dictionaries with the same shape, for instance:
@@ -76,7 +77,7 @@ Now running `print(treetable(lines, groups))` will give you
 
 ```
     info     |          metrics
- name  index | speed  accuracy  special
+name   index | speed  accuracy  special
 bob    4     |   200     21.0%    0.1
 alice  2     |    67     45.0%    4.6
 ```
@@ -88,7 +89,7 @@ For instance with the previous example you would get:
 
 ```
   info   |      metrics
- name  i | spee  accur  spec
+name   i | spee  accur  spec
 bob    4 |  200  21.0%  0.1
 alice  2 |   67  45.0%  4.6
 ```
