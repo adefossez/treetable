@@ -141,7 +141,6 @@ def _treetable(lines, group, separators):
         width = max(width, len(short_name))
         if child.wrap is not None:
             width = min(child.wrap, width)
-        print(child.key, width)
 
         if terminal:
             display_name = child.display[:width]
