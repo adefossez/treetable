@@ -34,7 +34,7 @@ setup(
     author_email=EMAIL,
     python_requires=REQUIRES_PYTHON,
     url=URL,
-    py_modules = ['treetable'],
+    packages=['treetable'],
     install_requires=REQUIRED,
     include_package_data=True,
     license='Unlicense license',
