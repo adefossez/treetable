@@ -97,7 +97,7 @@ def _treetable_terminal(lines, leaf):
     formatted = []
     for line in lines:
         if line is None:
-            content = leaf.missing
+            content = leaf.missing or ''
         else:
             content = format(line, leaf.format or 's')
         formatted.append(content)
