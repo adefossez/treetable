@@ -1,6 +1,6 @@
 import textwrap
 
-from .text import get_short_names, wrap_align, join
+from .text import get_short_names, join, text_width, wrap_align
 
 
 class _Node:
@@ -28,6 +28,9 @@ class _Node:
             return 0
         else:
             return 1 + max((child.depth for child in self.groups), default=0)
+
+    def __iter__(self):
+        return iter(self.groups)
 
     def inherit(self, parent):
         updates = {}
@@ -134,10 +137,11 @@ def _treetable(lines, group, separators):
         else:
             child_formatted = _treetable(
                 child_lines, group=child, separators=separators)
-        width = max((len(line) for line in child_formatted), default=0)
+        width = max((text_width(line) for line in child_formatted), default=0)
         width = max(width, len(short_name))
         if child.wrap is not None:
             width = min(child.wrap, width)
+        print(child.key, width)
 
         if terminal:
             display_name = child.display[:width]

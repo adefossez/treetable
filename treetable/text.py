@@ -30,6 +30,10 @@ def get_short_names(names):
     return [name[:lengths[name]] for name in names]
 
 
+def text_width(text):
+    return max((len(line) for line in text.split('\n')), default=0)
+
+
 def wrap(text, width, tabwidth=4):
     text = text.replace('\t', ' ' * tabwidth)
     if not text:
