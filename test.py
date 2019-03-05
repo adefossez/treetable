@@ -43,7 +43,7 @@ mytable = table([
         align='>',
         groups=[
             group('train', [
-                leaf('precision', '.1%', display='P//'),
+                leaf('precision', '.1%', display='Pr'),
                 leaf('recall', '.1%')
             ]),
             group('test', [leaf('auc', '.1%'),
@@ -58,16 +58,6 @@ print_groups(mytable, 0)
 mytable.groups.append(group('plop', []))
 print_groups(mytable)
 
-groups = {
-    'info': {
-        'index': 'd',
-        'status': '1s',
-    },
-    'metrics>': {
-        'precision': '.1%',
-        'recall': '.1%',
-    }
-}
 mytable = table([
     group('info',
           [leaf('index', 'd'), leaf('status', '1s')]),

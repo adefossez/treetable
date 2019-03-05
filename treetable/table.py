@@ -85,7 +85,7 @@ def group(key, groups, **kwargs):
     return _Node(key=key, groups=groups, **kwargs)
 
 
-def leaf(key, format, **kwargs):
+def leaf(key, format='', **kwargs):
     return _Node(key=key, format=format, **kwargs)
 
 
@@ -99,7 +99,7 @@ def _treetable_terminal(lines, leaf):
         if line is None:
             content = leaf.missing or ''
         else:
-            content = format(line, leaf.format or 's')
+            content = format(line, leaf.format or '')
         formatted.append(content)
     return formatted
 
@@ -160,20 +160,16 @@ def _treetable(lines, group, separators):
     return join(columns, separator=separators[depth - 1])
 
 
-def treetable(lines,
-              table,
-              separators=['  ', ' | ', '  ||  '],
-              line_separator='\n'):
+def treetable(lines, table, separators=['  ', ' | ', '  ||  ']):
     '''
+    Pretty-print `lines` using the `table` structure.
 
     `separators` give the list of sub-tables separators. It needs to be
     as long as the maximum depth of `groups`. Deepest separators comes first.
     If longer than the maximum depth of `groups`, the first ones will be used.
 
-    `line_separator` is used to separate the lines in the table.
-
     '''
-    return line_separator.join(
+    return '\n'.join(
         _treetable(lines=lines, group=table, separators=separators))
 
 
