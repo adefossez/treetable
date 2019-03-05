@@ -1,110 +1,67 @@
-from treetable import treetable
+from treetable import treetable, table, group, leaf
 import random
 import string
 
 
-def _gen_line(groups):
-    if isinstance(groups, dict):
-        return {
-            name.rstrip('<>='): _gen_line(group)
-            for name, group in groups.items()
-        }
-    else:
-        format_ = groups
+def _gen_line(group):
+    if group.groups is None:
+        format_ = group.format
+        if format_ is None or 's' in format_:
+            size = format_.rstrip('s')
+            if size:
+                size = int(size)
+            else:
+                size = random.randrange(4, 16)
+            return ''.join(
+                random.choice(string.ascii_letters) for _ in range(size))
         if 'd' in format_:
             return random.randrange(50)
         elif '%' in format_:
             return random.random()
-        elif 's' in format_:
-            size = int(format_.rstrip('s'))
-            return ''.join(
-                random.choice(string.ascii_letters)
-                for _ in range(random.randint(1, size)))
         else:
             raise ValueError(f"Don't know how to handle format {format_}")
+    else:
+        return {group.key: _gen_line(group) for group in group.groups}
 
 
-def print_groups(groups, num_lines=4):
+def print_groups(table, num_lines=4):
     lines = []
     for _ in range(num_lines):
-        lines.append(_gen_line(groups))
-    print(treetable(lines, groups, shorten=False))
+        lines.append(_gen_line(table))
+    print(treetable(lines, table))
     print()
-    print(treetable(lines, groups, shorten=True))
+    print(treetable(lines, table.update(shorten=True)))
     print()
 
 
-groups = {
-    'name': '10s',
-    'info': {
-        'index': 'd',
-        'status': '1s',
-    },
-    'metrics>': {
-        'train': {
-            'precision': '.1%',
-            'recall': '.1%',
-        },
-        'test': {
-            'auc': '.1%',
-            'accuracy': '.1%',
-        }
-    },
-}
-print_groups(groups, 0)
-print_groups(groups)
+mytable = table([
+    leaf('name', 's', wrap=7),
+    group('info',
+          [leaf('index', 'd'), leaf('status', '1s')]),
+    group(
+        'metrics',
+        align='>',
+        groups=[
+            group('train', [
+                leaf('precision', '.1%', display='Pr'),
+                leaf('recall', '.1%')
+            ]),
+            group('test', [leaf('auc', '.1%'),
+                           leaf('accuracy', '.1%')])
+        ])
+])
 
-groups['plop'] = {}
-print_groups(groups)
+print(repr(mytable))
+print_groups(mytable)
+print_groups(mytable, 0)
 
-groups = {
-    'info': {
-        'index': 'd',
-        'status': '1s',
-    },
-    'metrics>': {
-        'precision': '.1%',
-        'recall': '.1%',
-    }
-}
-print_groups(groups)
+mytable.groups.append(group('plop', []))
+print_groups(mytable)
 
-groups = {
-    'info': {  # subtable info
-        'name': 's',  # name is an actual column, of type string
-        'index': 'd',  # and here an int
-    },
-    'metrics>': {  # another subtable
-        'speed': '.0f',
-        'accuracy': '.1%',
-        'special=': '.1f'
-    }
-}
-lines = [
-    {
-        'info': {
-            'name': 'bob',
-            'index': 4
-        },
-        'metrics': {
-            'speed': 200,
-            'accuracy': 0.21,
-            'special': 0.1
-        }
-    },
-    {
-        'info': {
-            'name': 'alice',
-            'index': 2
-        },
-        'metrics': {
-            'speed': 67,
-            'accuracy': 0.45,
-            'special': 4.56
-        }
-    },
-]
-print(treetable(lines, groups))
-print()
-print(treetable(lines, groups, shorten=True))
-print()
+mytable = table([
+    group('info',
+          [leaf('index', 'd'), leaf('status', '1s')]),
+    group('metrics', [leaf('precision', '.1%'),
+                      leaf('recall', '.1%')])
+])
+print_groups(mytable)
