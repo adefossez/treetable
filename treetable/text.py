@@ -54,6 +54,12 @@ def align(text, width, alignment):
         raise ValueError(f'Invalid value for align {alignment}')
 
 
+def colorize(text, color):
+    code = f"\033[{color}m"
+    restore = f"\033[0m"
+    return "".join([code, text, restore])
+
+
 def wrap_align(text, width=None, alignment='<'):
     '''
     Return value justified to the given width, either
