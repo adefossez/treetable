@@ -1,6 +1,6 @@
 import textwrap
 
-from .text import get_short_names, join, text_width, wrap_align
+from .text import colorize, get_short_names, join, text_width, wrap_align
 
 
 class _Node:
@@ -139,7 +139,7 @@ def _treetable(lines, group, separators):
                 child_lines, group=child, separators=separators)
         width = max((text_width(line) for line in child_formatted), default=0)
         width = max(width, len(short_name))
-        if child.wrap is not None:
+        if child.groups is None and child.wrap is not None:
             width = min(child.wrap, width)
 
         if terminal:
@@ -153,14 +153,11 @@ def _treetable(lines, group, separators):
             wrap_align(line, width=width, alignment=child.align or '<')
             for line in child_formatted
         ]
-        for l in child_formatted:
-            for c in l.split('\n'):
-                assert len(c) == width
         columns.append(child_formatted)
     return join(columns, separator=separators[depth - 1])
 
 
-def treetable(lines, table, separators=['  ', ' | ', '  ||  ']):
+def treetable(lines, table, separators=['  ', ' | ', '  ||  '], colors=None):
     '''
     Pretty-print `lines` using the `table` structure.
 
@@ -169,8 +166,17 @@ def treetable(lines, table, separators=['  ', ' | ', '  ||  ']):
     If longer than the maximum depth of `groups`, the first ones will be used.
 
     '''
-    return '\n'.join(
-        _treetable(lines=lines, group=table, separators=separators))
+    lines = _treetable(lines=lines, group=table, separators=separators)
+    if colors is not None:
+        lines = [
+            colorize(line, colors[index % len(colors)])
+            for index, line in enumerate(lines)
+        ]
+        depth = table.depth
+        header = lines[:depth]
+        header = [colorize(line, "1") for line in header]
+        lines[:depth] = header
+    return "\n".join(lines)
 
 
 if __name__ == "__main__":

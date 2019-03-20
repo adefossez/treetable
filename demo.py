@@ -37,10 +37,12 @@ lines = [
     },
 ]
 
-print(treetable(lines, mytable))
+colors = ['30', '39']
+
+print(treetable(lines, mytable, colors=colors))
 mytable.shorten = True
 print("shortened version:")
-print(treetable(lines, mytable))
+print(treetable(lines, mytable, colors=colors))
 
 # wrapping columns
 mytable.groups[0].groups[0].wrap = 3
