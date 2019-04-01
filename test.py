@@ -28,7 +28,11 @@ def print_groups(table, num_lines=4):
     lines = []
     for _ in range(num_lines):
         lines.append(_gen_line(table))
-    print(treetable(lines, table))
+    print(treetable(
+        lines,
+        table,
+        colors=["30", "39"],
+    ))
     print()
     print(treetable(lines, table.update(shorten=True)))
     print()
