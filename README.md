@@ -121,6 +121,17 @@ It is possible to customize the column separators by passing
 `separators` to the `treetable` function. Its default value is
 `['  ', ' | ', '  ||  ']`.
 
+
+### Colors
+
+It is possible to use ANSI color codes by passing a list of color codes to `treetable()` with the `colors` argument.
+The i-th line (including headers) will have the color `colors[i % len(colors]`. For instance:
+
+```python
+treetable(lines, mytable, colors=["30", "39"])
+```
+
+
 ## License
 
 `treetable` is distributed under the Unlicense license.
