@@ -12,7 +12,7 @@ URL = 'https://github.com/adefossez/treetable'
 EMAIL = 'alexandredefossez@gmail.com'
 AUTHOR = 'Alexandre Défossez'
 REQUIRES_PYTHON = '>=3.6.0'
-VERSION = "0.2.3"
+VERSION = "0.2.4"
 
 HERE = Path(__file__).parent
 
