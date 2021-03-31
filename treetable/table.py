@@ -124,6 +124,8 @@ def _treetable(lines, group, separators):
     columns = []
     for child, short_name in zip(groups, short_names):
         child = child.inherit(group)
+        if child.groups is not None and len(child.groups) == 0:
+            continue
         child_depth = child.depth
         delta_depth = depth - child_depth
         terminal = child.groups is None
