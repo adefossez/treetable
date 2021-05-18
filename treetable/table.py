@@ -157,7 +157,7 @@ def _treetable(lines, group, separators):
     return join(columns, separator=separators[depth - 1])
 
 
-def treetable(lines, table, separators=['  ', ' | ', '  ||  '], colors=None):
+def treetable(lines, table, separators=['  ', ' | ', '  ||  '], colors=None, header_down=False):
     '''
     Pretty-print `lines` using the `table` structure.
 
@@ -176,6 +176,8 @@ def treetable(lines, table, separators=['  ', ' | ', '  ||  '], colors=None):
         header = lines[:depth]
         header = [colorize(line, "1") for line in header]
         lines[:depth] = header
+        if header_down:
+            lines += header
     return "\n".join(lines)
 
 
