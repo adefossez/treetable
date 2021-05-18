@@ -177,7 +177,7 @@ def treetable(lines, table, separators=['  ', ' | ', '  ||  '], colors=None, hea
         header = [colorize(line, "1") for line in header]
         lines[:depth] = header
         if header_down:
-            lines += header
+            lines += header[::-1]
     return "\n".join(lines)
 
 
