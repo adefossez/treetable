@@ -65,7 +65,7 @@ lines = [
 ]
 ```
 
-Now running `print(treetable(lines, groups))` will give you
+Now running `print(treetable(lines, mytable))` will give you
 
 ```
     info     |         metrics
